@@ -8,6 +8,7 @@ import { NovaTransferenciaComponent } from './nova-transferencia/nova-transferen
 @NgModule({
   declarations: [
     AppComponent,
+    NovaTransferenciaComponent,
     NovaTransferenciaComponent
   ],
   imports: [

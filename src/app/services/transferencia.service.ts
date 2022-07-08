@@ -1,28 +1,22 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Transferencia } from '../types/Transferencia.type'
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransferenciaService {
+  private _url: string = environment.apiUrl + '/transferencias';
 
-  private _listaTransferencias: Transferencia[];
-  private _listaTransferenciasSubject: BehaviorSubject<Transferencia[]>;
-  public listaTransferencias$: Observable<Transferencia[]>;
+  constructor(private http: HttpClient) { }
 
-  constructor() {
-    this._listaTransferencias = [];
-    this._listaTransferenciasSubject = new BehaviorSubject<Transferencia[]>(this._listaTransferencias);
-    this.listaTransferencias$ = this._listaTransferenciasSubject.asObservable();
+  get transferencias(): Observable<ReadonlyArray<Transferencia>> {
+    return this.http.get<Transferencia[]>(this._url);
   }
 
-  get transferencias(): Transferencia[] {
-    return this._listaTransferencias;
-  }
-
-  adicionarTransferencia(transferencia: Transferencia): void {
-    this._listaTransferencias.push(transferencia);
-    this._listaTransferenciasSubject.next([...this._listaTransferencias]);
+  adicionarTransferencia(transferencia: Transferencia): Observable<Transferencia> {
+    return this.http.post<Transferencia>(this._url, transferencia);
   }
 }

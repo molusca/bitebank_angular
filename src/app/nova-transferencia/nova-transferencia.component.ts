@@ -17,20 +17,30 @@ export class NovaTransferenciaComponent implements OnInit {
   }
 
   transferir() {
-    
+
     if (!this.destino || !this.valor) {
       return;
     }
 
     const objetoTransferencia: Transferencia = {
-      valor: this.valor, 
+      valor: this.valor,
       destino: this.destino,
-      data: new Date()
-    }; 
+      data: new Date().toISOString()
+    };
 
-    this.transferenciaService.adicionarTransferencia(objetoTransferencia);
+    this.transferenciaService.adicionarTransferencia(objetoTransferencia)
+    .subscribe({
+      next: (resultado) => {
+        console.log(resultado);
+        this.limparFomulario();
+      },
+      error: (error) => {
+        console.error(error);
+      },
+      complete: () => {}
+    });
 
-    this.limparFomulario();
+
   }
 
   limparFomulario() {

@@ -16,8 +16,8 @@ export class ExtratoComponent implements OnInit, OnDestroy {
   constructor(private transferenciaService: TransferenciaService) { }
 
   ngOnInit(): void {
-    this.subscription = this.transferenciaService.listaTransferencias$.subscribe((transferencia: Transferencia[]) => {
-      this.transferencias = transferencia;
+    this.subscription = this.transferenciaService.transferencias.subscribe((transferencias: Transferencia[]) => {
+      this.transferencias = transferencias;
     });
   }
 

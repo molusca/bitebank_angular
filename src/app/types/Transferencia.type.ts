@@ -1,5 +1,6 @@
 export type Transferencia = {
-  valor: number;
-  destino: number;
-  data: Date;
+  id?: number | string;
+  valor: number | string;
+  destino: number | string;
+  data: string | Date;
 };

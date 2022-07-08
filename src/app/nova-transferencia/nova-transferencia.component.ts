@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { TransferenciaService } from '../services/transferencia.service';
 import { Transferencia } from '../types/Transferencia.type';
 
@@ -11,7 +13,13 @@ export class NovaTransferenciaComponent implements OnInit {
   public valor: number;
   public destino: number;
 
-  constructor(private transferenciaService: TransferenciaService) { }
+  constructor(
+    private transferenciaService: TransferenciaService,
+    private router: Router,
+    private title: Title
+  ) {
+    this.title.setTitle('Bytebank - Nova Transferência');
+  }
 
   ngOnInit(): void {
   }
@@ -37,7 +45,9 @@ export class NovaTransferenciaComponent implements OnInit {
       error: (error) => {
         console.error(error);
       },
-      complete: () => {}
+      complete: () => {
+        this.router.navigateByUrl('/extrato');
+      }
     });
 
 

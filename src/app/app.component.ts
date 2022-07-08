@@ -9,11 +9,6 @@ export class AppComponent {
   title = 'bytebank_angular';
   public transferencias: any[] = [];
 
-  transferir(event) {
-    const transferencia = {
-      ...event,
-      data: new Date()
-    };
-    this.transferencias.push(transferencia);
-  }
+  constructor() { }
+
 }
